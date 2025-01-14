@@ -11,17 +11,18 @@ function App() {
   const [products, setProduct] =useState([])
 
   const [account, setAccount] = useState({
-    username: "example@test.com",
-    password: "example"
+    username: "",
+    password: ""
   })
   
   const handleInputChange = (e) => {
     const {value, name} = e.target;
-    setAccount({
-      // 展開資料，此處會等於{username: "example@test.com",password: "example"}
+    setAccount({  // 完整覆蓋
+      // 把原始物件資料展開帶入，此處會等於正上方的{username: "",password: ""}
       ...account,
-      // [name]筆記待補
+      // 將input中的屬性name當成變數套用，提高使用率
       [name]: value
+      // 利用相同屬性會被後方程式碼覆蓋的原理，這裡會覆蓋掉上方的物件資料內容
     })
   }
   const handleLogin = (e) => {
@@ -120,7 +121,7 @@ function App() {
         {/* 常見的做法會是在form標籤上面綁定onSubmit，而非綁定在button上綁onClick */}
         <form onSubmit={handleLogin} className="d-flex flex-column gap-3">
           <div className="form-floating mb-3">
-            {/* 在input上綁定name, value, onchange */}
+            {/* 在input上綁定name讓handleInputChange可以取用 */}
             <input name="username" value={account.username} onChange={handleInputChange} type="email" className="form-control" id="username" />
             <label htmlFor="username">Email address</label>
           </div>
