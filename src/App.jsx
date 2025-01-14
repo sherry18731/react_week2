@@ -73,7 +73,7 @@ function App() {
                   <th scope="row">{product.title}</th>
                   <td>{product.skiRuns}</td>
                   <td>{product.cableCars}</td>
-                  <td>{product.is_enabled === true ? "有" : "無"}</td>
+                  <td>{product.special.nightSki == true ? "有" : "無"}</td>
                   <td>
                     <button
                       onClick={() => setTempProduct(product)}
