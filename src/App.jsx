@@ -56,24 +56,24 @@ function App() {
       <div className="row">
         <div className="col-6">
           <button onClick={checkUserLogin} className="btn btn-success mb-5" type="button">檢查是否登入</button>
-          <h2>產品列表</h2>
+          <h2>雪場列表</h2>
           <table className="table">
             <thead>
               <tr>
-                <th scope="col">產品名稱</th>
-                <th scope="col">原價</th>
-                <th scope="col">售價</th>
-                <th scope="col">是否啟用</th>
-                <th scope="col">查看細節</th>
+                <th scope="col">雪場名稱</th>
+                <th scope="col">雪道數量</th>
+                <th scope="col">纜車數量</th>
+                <th scope="col">夜間滑雪</th>
+                <th scope="col">詳細資料</th>
               </tr>
             </thead>
             <tbody>
               {products.map((product) => (
                 <tr key={product.id}>
                   <th scope="row">{product.title}</th>
-                  <td>{product.origin_price}</td>
-                  <td>{product.price}</td>
-                  <td>{product.is_enabled}</td>
+                  <td>{product.skiRuns}</td>
+                  <td>{product.cableCars}</td>
+                  <td>{product.is_enabled === true ? "有" : "無"}</td>
                   <td>
                     <button
                       onClick={() => setTempProduct(product)}
@@ -89,7 +89,7 @@ function App() {
           </table>
         </div>
         <div className="col-6">
-          <h2>單一產品細節</h2>
+          <h2>雪場介紹</h2>
           {tempProduct.title ? (
             <div className="card">
               <img
@@ -98,20 +98,14 @@ function App() {
                 alt={tempProduct.title}
               />
               <div className="card-body">
-                <h5 className="card-title">
-                  {tempProduct.title}
-                  <span className="badge text-bg-primary">
-                    {tempProduct.category}
-                  </span>
-                </h5>
-                <p className="card-text">商品描述：{tempProduct.description}</p>
-                <p className="card-text">商品內容：{tempProduct.content}</p>
-                <p className="card-text">
-                  <del>{tempProduct.origin_price} 元</del> / {tempProduct.price}{" "}
-                  元
-                </p>
-                <h5 className="card-title">更多圖片：</h5>
-                {tempProduct.imagesUrl?.map((image) => (image && (<img key={image} src={image} className="img-fluid" />)))}
+              <span className="badge text-bg-primary mb-2">{tempProduct.category}</span>
+                <h5 className="card-title">{tempProduct.title}</h5>
+                <h4 className="card-title">{tempProduct.japaneseTitle}</h4>
+                <p className="card-text">雪場描述：{tempProduct.describe}</p>
+                <p className="card-text">最長坡道：{tempProduct.longestDistance}</p>
+                <p className="card-text">最大坡度：{tempProduct.maxSlope}{" "}度</p>
+                {/* <h5 className="card-title">更多圖片：</h5>
+                {tempProduct.imagesUrl?.map((image) => (image && (<img key={image} src={image} className="img-fluid" />)))} */}
               </div>
             </div>
           ) : (
