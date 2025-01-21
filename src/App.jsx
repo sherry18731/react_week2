@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import axios from 'axios'
 
 const {VITE_BASE_URL, VITE_API_PATH} = import.meta.env
@@ -35,19 +35,33 @@ function App() {
         document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
 
         axios.defaults.headers.common['Authorization'] = token;
-
-        axios.get(`${VITE_BASE_URL}/v2/api/${VITE_API_PATH}/admin/products`)
-          .then((res) => setProduct(res.data.products))
-          .catch((error) => console.log(error))
+        getProducts();
         setIsAuth(true)
       })
       .catch(() => alert('登入失敗'))
   }
 
+  const getProducts = async () => {
+    try {
+      const res = await axios.get(
+        `${VITE_BASE_URL}/v2/api/${VITE_API_PATH}/admin/products`
+      );
+      setProduct(res.data.products)
+    } catch (error) {
+      alert("取得資料失敗");
+    }
+  }
+
   const checkUserLogin = async() => {
-    axios.post(`${VITE_BASE_URL}/v2/api/user/check`)
-      .then((res) => alert('使用者已登入'))
-      .catch((error) => console.error(error))
+      try {
+        const res = await axios.post(
+          `${VITE_BASE_URL}/v2/api/user/check`
+        );
+        getProducts();
+        setIsAuth(true)
+      } catch (error) {
+        alert("取得資料失敗");
+      }
   }
 
   return (
