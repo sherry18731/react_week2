@@ -196,7 +196,7 @@ const createProduct = async() => {
       }
     })
   } catch (error) {
-    alert('新增產品失敗')
+    alert(error.data.message)
   }
 }
 
@@ -211,7 +211,7 @@ const updateProduct = async() => {
       }
     })
   } catch (error) {
-    alert('編輯產品失敗')
+    alert(error.data.message)
   }
 }
 
@@ -449,6 +449,7 @@ const handleDeleteProduct = async() => {
                         原價
                       </label>
                       <input
+                        min={0}
                         value={tempProduct.origin_price}
                         onChange={handleModalInputChange}
                         name="origin_price"
@@ -463,6 +464,7 @@ const handleDeleteProduct = async() => {
                         售價
                       </label>
                       <input
+                        min={0}
                         value={tempProduct.price}
                         onChange={handleModalInputChange}
                         name="price"
