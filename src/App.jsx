@@ -78,7 +78,7 @@ function App() {
                 <th scope="col">雪場名稱</th>
                 <th scope="col">雪道數量</th>
                 <th scope="col">纜車數量</th>
-                <th scope="col">夜間滑雪</th>
+                {/* <th scope="col">夜間滑雪</th> */}
                 <th scope="col">詳細資料</th>
               </tr>
             </thead>
@@ -88,7 +88,7 @@ function App() {
                   <th scope="row">{product.title}</th>
                   <td>{product.skiRuns}</td>
                   <td>{product.cableCars}</td>
-                  <td>{product.special.nightSki == true ? "有" : "無"}</td>
+                  {/* <td>{product.special.nightSki == true ? "有" : "無"}</td> */}
                   <td>
                     <button
                       onClick={() => setTempProduct(product)}
