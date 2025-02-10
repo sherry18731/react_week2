@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function Pagination({pageInfo, handlePageChange}) {
   return (
     <div className="d-flex justify-content-center">
@@ -28,6 +30,10 @@ function Pagination({pageInfo, handlePageChange}) {
     </div>
   )
 
+}
+
+Pagination.prototype = {
+  pageInfo = 
 }
 
 export default Pagination;
