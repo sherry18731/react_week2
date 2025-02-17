@@ -1,0 +1,18 @@
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.nav-link {
+  color: #1E1E1E;
+  &:hover {
+    color: #779ECB !important;
+  }
+}
+
+.navbar-toggler-icon {
+  filter: invert(25%) sepia(50%) saturate(200%) hue-rotate(160deg);
+}
