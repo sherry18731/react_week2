@@ -25,7 +25,7 @@ export default function FrontLayout() {
       <nav className="navbar navbar-expand-lg mb-4 py-4">
         <div className="container">
         <NavLink className="navbar-brand" to=''>
-          <img src="../src/assets/images/logo-2.png" alt="logo" style={{width: '200px'}}/>
+          <img src="https://firebasestorage.googleapis.com/v0/b/homework-b5f67.appspot.com/o/logo-2.png?alt=media&token=c68f278b-d93a-4973-a41f-aa16ad0cb306" alt="logo" style={{width: '200px'}}/>
         </NavLink>
           <button className="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>

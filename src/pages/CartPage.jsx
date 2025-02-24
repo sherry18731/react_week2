@@ -118,7 +118,6 @@ export default function CartPage() {
       alert('成功送出訂單')
     } catch (error) {
       alert('結帳失敗')
-      console.dir(error)
     } finally {
       setIsScreenLoading(false);
     }

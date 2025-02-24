@@ -159,7 +159,6 @@ function App() {
       getCart();
     } catch (error) {
       alert('結帳失敗')
-      console.dir(error)
     } finally {
       setIsScreenLoading(false);
     }
