@@ -2,10 +2,15 @@ import { useEffect, useRef } from "react";
 import axios from "axios";
 import { Modal } from 'bootstrap';
 
+import { useDispatch } from "react-redux";
+import { pushMessage } from "../redux/toastSlice";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 function DelProductModal({isOpen, setIsOpen, getProducts, tempProduct}) {
+
+  const dispatch = useDispatch();
 
   const dalProductModal = useRef(null);
 
@@ -18,8 +23,10 @@ function DelProductModal({isOpen, setIsOpen, getProducts, tempProduct}) {
   const deleteProduct = async() => {
     try {
       await axios.delete(`${BASE_URL}/v2/api/${API_PATH}/admin/product/${tempProduct.id}`)
+      dispatch(pushMessage({text: '刪除產品成功', status: 'success'}))
     } catch (error) {
-      alert('刪除產品失敗',error)
+      // alert('刪除產品失敗',error)
+      dispatch(pushMessage({text: '刪除產品失敗', status: 'danger'}))
     }
   }
 
@@ -29,7 +36,8 @@ function DelProductModal({isOpen, setIsOpen, getProducts, tempProduct}) {
       getProducts();
       handleCloseDelProductModal();
     } catch (error) {
-      alert('刪除產品失敗',error)
+      // alert('刪除產品失敗',error)
+      dispatch(pushMessage({text: '刪除產品失敗', status: 'danger'}))
     }
   }
 
