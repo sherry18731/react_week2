@@ -3,6 +3,9 @@ import axios from "axios";
 import Pagination from "../components/Pagination";
 import ProductModal from "../components/ProductModal";
 import DelProductModal from "../components/DelProductModal";
+import Toast from "../components/Toast";
+import { useDispatch } from "react-redux";
+import { pushMessage } from "../redux/toastSlice";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -20,11 +23,12 @@ const defaultModalState = {
   imagesUrl: [""]
 };
 
-function ProductPage() {
+function ProductPage({ setIsAuth }) {
   const [products, setProducts] = useState([])
   const [modalMode, setModalMode] = useState(null)
   const [isProductsModalOpen, setIsProductsModalOpen] = useState(false)
   const [isDelProductsModalOpen, setIsDelProductsModalOpen] = useState(false)
+  const dispatch = useDispatch();
 
   const getProducts = async (page = 1) => {
     try {
@@ -79,9 +83,30 @@ const [tempProduct, setTempProduct] = useState(defaultModalState);
     getProducts(page)
   }
 
+  useEffect(() => {
+    getProducts()
+  },[])
+
+  const handleLogout = async () => {
+    try {
+      await axios.post(`${BASE_URL}/v2/logout`);
+      setIsAuth(false);
+    } catch (error) {
+      dispatch(pushMessage({ text: "登出失敗", status: "danger" }));
+      // alert("喔齁～出不去了",error);
+    }
+  };
+
   return (
     <>
       <div className="container py-5">
+        <div className="row mb-3">
+          <div className="justify-content-end">
+            <button onClick={handleLogout} type="button" className="btn btn-secondary">
+              登出
+            </button>
+          </div>
+        </div>
         <div className="row">
           <div className="col">
             <div className="d-flex justify-content-between">
@@ -132,6 +157,8 @@ const [tempProduct, setTempProduct] = useState(defaultModalState);
       isOpen={isDelProductsModalOpen} 
       setIsOpen={setIsDelProductsModalOpen}
       getProducts={getProducts}/>
+
+      <Toast/>
     </>
   )
 }

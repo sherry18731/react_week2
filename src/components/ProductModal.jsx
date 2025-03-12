@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Modal } from 'bootstrap';
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { pushMessage } from "../redux/toastSlice";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -8,6 +10,7 @@ const API_PATH = import.meta.env.VITE_API_PATH;
 function ProductModal({modalMode, tempProduct, isOpen, setIsOpen, getProducts}) {
   const productModalRef = useRef(null)
   const [modalData, setModalData] = useState(tempProduct)
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setModalData({
@@ -86,8 +89,10 @@ function ProductModal({modalMode, tempProduct, isOpen, setIsOpen, getProducts}) 
           is_enabled: modalData.is_enabled ? 1 : 0
         }
       })
+      dispatch(pushMessage({text: '成功新增產品', status: 'success'}))
     } catch (error) {
-      alert(error.data.message)
+      const { message } = error.response.data;
+      dispatch(pushMessage({text: message.join("、"), status: 'fail'}))
     }
   }
   
@@ -101,20 +106,20 @@ function ProductModal({modalMode, tempProduct, isOpen, setIsOpen, getProducts}) 
           is_enabled: modalData.is_enabled ? 1 : 0
         }
       })
+      dispatch(pushMessage({text: '成功修改產品', status: 'success'}))
     } catch (error) {
-      alert(error.data.message)
+      dispatch(pushMessage({text: '修改產品失敗', status: 'fail'}))
     }
   }
 
   const handleUpdateProduct = async() => {
-    const apiCall = modalMode === 'create' ? createProduct : updateProduct
-  
+    const apiCall = modalMode === 'create' ? createProduct : updateProduct;
     try {
     await apiCall();
     getProducts();
     handleCloseProductModal();
     } catch (error) {
-      alert('更新產品失敗',error)
+      console.log(error);
     }
   }
 
@@ -132,7 +137,8 @@ function ProductModal({modalMode, tempProduct, isOpen, setIsOpen, getProducts}) 
         imageUrl: uploadedImageUrl
       })
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      dispatch(pushMessage({text: '上傳圖片失敗', status: 'fail'}))
     }
   }
 

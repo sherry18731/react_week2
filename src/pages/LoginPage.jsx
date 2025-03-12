@@ -7,7 +7,7 @@ function LoginPage({ setIsAuth }) {
   
   const [account, setAccount] = useState({
     username: "shw18731@gmail.com",
-    password: "iuUXtK08xYu598XMkBMH",
+    password: "qaz123wsx456",
   });
   const handleInputChange = (e) => {
     const { value, name } = e.target;
